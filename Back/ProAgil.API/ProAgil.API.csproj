@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\Design_de_Sobrancelhas-01-1.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Resources\Images\img1.jpg" />
+	  <Content Include="Resources\Images\img2.jpg" />
+	  <Content Include="Resources\Images\img3.jpg" />
+	  <Content Include="Resources\Images\img4.jpg" />
+	  <Content Include="Resources\Images\img5.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
+		<PackageReference Include="Grpc.Core.Api" Version="2.38.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.1" NoWarn="NU1605" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.1" NoWarn="NU1605" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+
+		<PackageReference Include="EntityFramework" Version="6.4.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.7">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ProAgil.Domain\ProAgil.Domain.csproj" />
+		<ProjectReference Include="..\ProAgil.Repository\ProAgil.Repository.csproj" />
+	</ItemGroup>
+
+</Project>
