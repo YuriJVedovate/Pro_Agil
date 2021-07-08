@@ -1,0 +1,197 @@
+<div class="row mt-4">
+  <div class="col-md-6">
+    <div
+      class="row col-6 h-100 mx-auto justify-content-center align-items-center"
+    >
+      <h1 style="font-size: 3em">Cadastro de Usuário</h1>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <form [formGroup]="registerForm" autocomplete="off">
+      <div class="form-floating form-group required mt-3">
+        <input
+          type="text"
+          class="form-control"
+          id="InputNome"
+          formControlName="fullName"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('fullName').errors &&
+              registerForm.get('fullName').touched,
+            'is-valid':
+              !registerForm.get('fullName').errors &&
+              registerForm.get('fullName')!.touched
+          }"
+          placeholder="Insira o Nome Completo"
+        />
+        <label class="" for="InputNome">Nome Completo:</label>
+        <div
+          *ngIf="
+            registerForm.get('fullName').hasError('required') &&
+            registerForm.get('fullName')!.touched
+          "
+          class="invalid-feedback"
+        >
+          O campo é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-floating form-group mt-3">
+        <input
+          class="form-control"
+          id="InputEmail"
+          type="text"
+          formControlName="email"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('email').errors &&
+              registerForm.get('email').touched,
+            'is-valid':
+              !registerForm.get('email').errors &&
+              registerForm.get('email')!.touched
+          }"
+          placeholder="Insira o Nome Completo"
+        />
+        <label for="InputEmail">Email:</label>
+        <div
+          *ngIf="
+            registerForm.get('email').hasError('required') &&
+            registerForm.get('email')!.touched
+          "
+          class="invalid-feedback"
+        >
+          O campo é obrigatório.
+        </div>
+        <div
+          *ngIf="
+            registerForm.get('email').hasError('email') &&
+            registerForm.get('email')!.touched
+          "
+          class="invalid-feedback"
+        >
+          E-mail invalido
+        </div>
+      </div>
+      <div class="form-floating form-group mt-3">
+        <input
+          class="form-control"
+          id="InputUsuario"
+          type="text"
+          formControlName="userName"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('userName').errors &&
+              registerForm.get('userName').touched,
+            'is-valid':
+              !registerForm.get('userName').errors &&
+              registerForm.get('userName')!.touched
+          }"
+          placeholder="Insira o nome de Usuário"
+        />
+        <label for="InputUsuario">Usuario:</label>
+        <div
+          *ngIf="
+            registerForm.get('userName').hasError('required') &&
+            registerForm.get('userName')!.touched
+          "
+          class="invalid-feedback"
+        >
+          O campo é obrigatório.
+        </div>
+      </div>
+      <div formGroupName="passwords">
+        <div class="form-floating form-group mt-3">
+          <input
+            class="form-control"
+            id="InputSenha"
+            type="password"
+            formControlName="password"
+            [ngClass]="{
+              'is-invalid':
+                registerForm.get('passwords.password').errors &&
+                registerForm.get('passwords.password').touched,
+                'is-valid':
+                  !registerForm.get('passwords.password').errors &&
+                  registerForm.get('passwords.password')!.touched
+            }"
+            placeholder="Digite uma Senha"
+          />
+          <label for="InputSenha">Senha:</label>
+          <div
+            *ngIf="
+              registerForm.get('passwords.password').hasError('required') &&
+              registerForm.get('passwords.password')!.touched
+            "
+            class="invalid-feedback"
+          >
+            O campo é obrigatório.
+          </div>
+          <div
+            *ngIf="
+              registerForm.get('passwords.password').hasError('minlength') &&
+              registerForm.get('passwords.password')!.touched
+            "
+            class="invalid-feedback"
+          >
+            A Senha deve ter no minimo 4 caracteres.
+          </div>
+        </div>
+        <div class="form-floating form-group mt-3">
+          <input
+            class="form-control"
+            id="InputConfirmeSenha"
+            type="password"
+            formControlName="confirmPassword"
+            [ngClass]="{
+              'is-invalid':
+                (registerForm.get('passwords.confirmPassword').errors &&
+                  registerForm.get('passwords.confirmPassword').touched) ||
+                (registerForm
+                  .get('passwords.confirmPassword')
+                  .hasError('mismatch') &&
+                  registerForm.get('passwords.confirmPassword').touched),
+              'is-valid':
+                !registerForm.get('passwords.confirmPassword').errors &&
+                registerForm.get('passwords.confirmPassword')!.touched
+            }"
+            placeholder="Confirme a Senha"
+          />
+          <label for="InputConfirmeSenha">Confirmar Senha:</label>
+          <div
+            *ngIf="
+              registerForm
+                .get('passwords.confirmPassword')
+                .hasError('required') &&
+              registerForm.get('passwords.confirmPassword')!.touched
+            "
+            class="invalid-feedback"
+          >
+            O campo é obrigatório.
+          </div>
+          <div
+            *ngIf="
+              registerForm
+                .get('passwords.confirmPassword')
+                .hasError('mismatch') &&
+              registerForm.get('passwords.confirmPassword').touched
+            "
+            class="invalid-feedback"
+          >
+            As senhas não são iguais
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-4 my-3 mx-auto">
+          <button
+            class="btn btn-lg btn-success btn-block"
+            [disabled]="!registerForm.valid"
+            (click)="cadastrarUsuario()"
+          >
+            Registar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
