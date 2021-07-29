@@ -1,0 +1,312 @@
+<app-titulo
+  [titulo]="titulo"
+  [subtitulo]="subtitulo"
+  [iconClass]="iconClass"
+></app-titulo>
+
+<div class="card rounded shadow-sm">
+  <form [formGroup]="registerForm" autocomplete="off">
+    <div class="row p-3">
+      <div class="col-lg-3 pt-1">
+        <div class="card mb-3">
+          <div class="card-header"></div>
+          <div class="d-flex align-self-center pt-3">
+            <a>
+              <img
+                src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R"
+                name="aboutme"
+                width="120"
+                height="120"
+                class="rounded-circle"
+              />
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="h4 text-center mb-3">@UserName</div>
+            <div class="h7 text-bold pb-1"><b>Nome:</b> Miracles Lee Cross</div>
+            <div class="h7">
+              Developer of web applications, JavaScript, PHP, Java, Python,
+              Ruby, Java, Node.js, etc.
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-6 text-center border-right">
+                  <div class="h5">1342</div>
+                  <div class="h6 text-muted">Eventos Ministrados</div>
+                </div>
+                <div class="col-6 text-center">
+                  <div class="h5">1342</div>
+                  <div class="h6 text-muted">Eventos Participados</div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="row">
+          <div class="form-group col-12">
+            <h3 class="border-bottom">Detalhe Perfil</h3>
+          </div>
+          <div class="form-floating form-group my-2 col">
+            <select
+              class="form-floating form-control"
+              placeholder="Título"
+              formControlName="titulo"
+              [ngClass]="{
+                'is-invalid': f.titulo.errors && f.titulo.touched,
+                'is-valid': !f.titulo.errors && f.titulo.touched
+              }"
+              id="inputTitulo"
+            >
+              <option value=""></option>
+              <option value="0">Não Quero</option>
+              <option value="Senhorita">Tecnólogo(a)</option>
+              <option value="Senhorita">Bacharel</option>
+              <option value="Senhorita">Especialista</option>
+              <option value="Senhorita">Pós Graduado(a)</option>
+              <option value="Senhorita">Mestre</option>
+              <option value="Senhorita">Doutor(a)</option>
+              <option value="Senhorita">Pós Doc</option>
+            </select>
+            <label class="mx-2" for="inputTitulo">Título</label>
+            <div
+              *ngIf="f.titulo.errors?.required && f.titulo.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+          </div>
+          <div class="form-floating form-group my-2 col-sm-5">
+            <input
+              type="text"
+              class="form-floating form-control"
+              id="inputPrimeiroNome"
+              placeholder="Primeiro Nome"
+              formControlName="primeiroNome"
+              [ngClass]="{
+                'is-invalid': f.primeiroNome.errors && f.primeiroNome.touched,
+                'is-valid': !f.primeiroNome.errors && f.primeiroNome.touched
+              }"
+            />
+            <label class="mx-2" for="inputPrimeiroNome">Primeiro Nome</label>
+            <div
+              *ngIf="f.primeiroNome.errors?.required && f.primeiroNome.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+            <div
+              *ngIf="f.primeiroNome.errors?.minlength && f.primeiroNome.touched"
+              class="invalid-feedback"
+            >
+              Campo deve ter no mínimo 4 Caracters.
+            </div>
+          </div>
+          <div class="form-floating form-group my-2 col-sm-5">
+            <input
+              type="text"
+              class="form-floating form-control"
+              id="inputUltimoNome"
+              placeholder="Último Nome"
+              formControlName="ultimoNome"
+              [ngClass]="{
+                'is-invalid': f.ultimoNome.errors && f.ultimoNome.touched,
+                'is-valid': !f.ultimoNome.errors && f.ultimoNome.touched
+              }"
+            />
+            <label class="mx-2" for="inputUltimoNome">Último nome</label>
+            <div
+              *ngIf="f.ultimoNome.errors?.required && f.ultimoNome.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+            <div
+              *ngIf="f.ultimoNome.errors?.minlength && f.ultimoNome.touched"
+              class="invalid-feedback"
+            >
+              Campo deve ter no mínimo 4 Caracters.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-floating form-group my-2 col-sm-5">
+            <input
+              type="text"
+              class="form-floating form-control"
+              id="inputE-mail"
+              placeholder="E-mail"
+              formControlName="email"
+              [ngClass]="{
+                'is-invalid': f.email.errors && f.email.touched,
+                'is-valid': !f.email.errors && f.email.touched
+              }"
+            />
+            <label class="mx-2" for="inputE-mail">E-mail</label>
+            <div
+              *ngIf="f.email.errors?.required && f.email.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+            <div
+              *ngIf="f.email.errors?.email && f.email.touched"
+              class="invalid-feedback"
+            >
+              Email invalido.
+            </div>
+          </div>
+          <div class="form-floating form-group my-2 col-sm-4">
+            <input
+              type="text"
+              mask="(00) 00000-0000"
+              class="form-floating form-control"
+              id="InputTelefone"
+              placeholder="telefone"
+              formControlName="telefone"
+              [ngClass]="{
+                'is-invalid': f.telefone.errors && f.telefone.touched,
+                'is-valid': !f.telefone.errors && f.telefone.touched
+              }"
+            />
+            <label class="mx-2" for="InputTelefone">Telefone</label>
+            <div
+              *ngIf="f.telefone.errors?.required && f.telefone.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+          </div>
+          <div class="form-floating form-group my-2 col-sm">
+            <select
+              class="form-floating form-control"
+              placeholder="Função"
+              id="InputFuncao"
+              formControlName="funcao"
+              [ngClass]="{
+                'is-invalid': f.funcao.errors && f.funcao.touched,
+                'is-valid': !f.funcao.errors && f.funcao.touched
+              }"
+            >
+              <option value=""></option>
+              <option value="Participante">Participante</option>
+              <option value="Palestrante">Palestrante</option>
+            </select>
+            <label class="mx-2" for="InputFuncao">Função</label>
+            <div
+              *ngIf="f.funcao.errors?.required && f.funcao.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+          </div>
+          <div class="form-floating form-group my-2 col-12">
+            <input
+              type="text"
+              class="form-floating form-control"
+              id="inputDescricao"
+              placeholder="Descrição"
+              formControlName="descricao"
+              [ngClass]="{
+                'is-invalid': f.descricao.errors && f.descricao.touched,
+                'is-valid': !f.descricao.errors && f.descricao.touched
+              }"
+            />
+            <label class="mx-2" for="inputDescricao">Descrição</label>
+            <div
+              *ngIf="f.descricao.errors?.required && f.descricao.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+            <div
+              *ngIf="f.descricao.errors?.minlength && f.descricao.touched"
+              class="invalid-feedback"
+            >
+              Campo deve ter no mínimo 4 Caracters.
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="pt-3 border-bottom">Mudar Senha</h3>
+          <p>Caso mude de senha, preencha os campos abaixo:</p>
+        </div>
+        <div class="row">
+          <div class="form-floating form-group my-2 col-sm">
+            <input
+              type="password"
+              class="form-floating form-control"
+              id="inputSenha"
+              placeholder="Senha"
+              formControlName="password"
+              [ngClass]="{
+                'is-invalid': f.password.errors && f.password.touched,
+                'is-valid': !f.password.errors && f.password.touched
+              }"
+            />
+            <label class="mx-2" for="inputSenha">Senha</label>
+            <div
+              *ngIf="f.password.errors?.required && f.password.touched"
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+            <div
+              *ngIf="f.password.errors?.minlength && f.password.touched"
+              class="invalid-feedback"
+            >
+              Campo deve ter no mínimo 4 Caracters.
+            </div>
+          </div>
+          <div class="form-floating form-group my-2 col-sm">
+            <input
+              type="password"
+              class="form-floating form-control"
+              id="inputConfirmeSenha"
+              placeholder="Confirmar Senha"
+              formControlName="confirmPassword"
+              [ngClass]="{
+                'is-invalid':
+                  f.confirmPassword.errors && f.confirmPassword.touched,
+                'is-valid':
+                  !f.confirmPassword.errors && f.confirmPassword.touched
+              }"
+            />
+            <label class="mx-2" for="inputConfirmeSenha">Confirmar Senha</label>
+            <div
+              *ngIf="
+                f.confirmPassword.errors?.required && f.confirmPassword.touched
+              "
+              class="invalid-feedback"
+            >
+              O campo é obrigatório.
+            </div>
+            <div
+              *ngIf="
+                f.confirmPassword.errors?.mustMatch && f.confirmPassword.touched
+              "
+              class="invalid-feedback"
+            >
+              As senhas não são iguais
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary mr-auto border">
+          Cancelar Alteração
+        </button>
+        <button class="btn btn-success">
+          <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+          Salvar Alteração
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProAgil.Domain.Dtos
 {
@@ -21,5 +17,8 @@ namespace ProAgil.Domain.Dtos
 
         [Range(1, 10000, ErrorMessage = "{0} s é entre 1 e 10000")]
         public int Quantidade { get; set; }
+
+        public int EventoId { get; set; }
+        public EventoDto Evento { get; set; }
     }
 }

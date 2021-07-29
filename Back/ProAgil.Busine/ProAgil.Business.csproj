@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProAgil.Domain\ProAgil.Model.csproj" />
+    <ProjectReference Include="..\ProAgil.Repository\ProAgil.Data.csproj" />
+  </ItemGroup>
+
+</Project>

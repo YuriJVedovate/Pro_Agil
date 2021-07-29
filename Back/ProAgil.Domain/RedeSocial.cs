@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ProAgil.Domain
+﻿namespace ProAgil.Domain
 {
     public class RedeSocial
     {

@@ -180,7 +180,7 @@ namespace ProAgil.Repository.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("varchar");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");

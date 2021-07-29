@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProAgil.Domain;
+using ProAgil.Business.Interfaces;
 using ProAgil.Domain.Dtos;
-using ProAgil.Repository;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -18,30 +17,31 @@ namespace ProAgil.API.Controllers
     [ApiController]
     public class EventosController : ControllerBase
     {
-        public readonly IProAgilRepository _repo;
-        private readonly IMapper _mapper;
+        private readonly IEventosServices _eventosServices;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public EventosController(IProAgilRepository repo, IMapper mapper)
+        public EventosController(IEventosServices eventosServices, IWebHostEnvironment hostEnvironment)
         {
-            _repo = repo;
-            _mapper = mapper;
+            _eventosServices = eventosServices;
+            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAsync()
         {
             try
             {
-                var eventos = await _repo.GetAllEventoAsync(false);
-                var results = _mapper.Map<EventoDto[]>(eventos);
-                return Ok(results);
+                var eventos = await _eventosServices.GetAllEventoAsync(true);
+                if (eventos == null) return NoContent();
+
+                return Ok(eventos);
+
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
             }
-
         }
 
         [HttpGet("{id}")]
@@ -50,13 +50,15 @@ namespace ProAgil.API.Controllers
         {
             try
             {
-                var evento = await _repo.GetEventoAsyncById(id, false);
-                var result = _mapper.Map<EventoDto>(evento);
-                return Ok(result);
+                var evento = await _eventosServices.GetEventoByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
+                return Ok(evento);
+
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar evento. Erro: {ex.Message}");
             }
         }
 
@@ -66,13 +68,14 @@ namespace ProAgil.API.Controllers
         {
             try
             {
-                var eventos = await _repo.GetAllEventoAsyncByTema(tema, false);
-                var results = _mapper.Map<EventoDto[]>(eventos);
-                return Ok(results);
+                var eventos = await _eventosServices.GetAllEventoByTemaAsync(tema, true);
+                if (eventos == null) return NoContent();
+
+                return Ok(eventos);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
             }
         }
 
@@ -82,16 +85,15 @@ namespace ProAgil.API.Controllers
         {
             try
             {
-                var evento = _mapper.Map<Evento>(model);
+                var eventos = await _eventosServices.AddEventos(model);
+                if (eventos == null) return BadRequest("Erro ao tentar ingressar evento!");
 
-                _repo.Add(evento);
-                if (await _repo.SaveChangesAsync()) return Created($"/api/evento/{evento.Id}", _mapper.Map<EventoDto>(evento));
+                return Ok(eventos);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar ingressar o evento. Erro: {ex.Message}");
             }
-            return BadRequest();
         }
 
         [HttpPut("{id}")]
@@ -100,20 +102,15 @@ namespace ProAgil.API.Controllers
         {
             try
             {
-                var evento = await _repo.GetEventoAsyncById(id, false);
-                if (evento == null) return NotFound();
+                var evento = await _eventosServices.UpdateEventos(id, model);
+                if (evento == null) BadRequest("Evento não Atualizado");
 
-                _mapper.Map(model, evento);
-
-                _repo.Update(evento);
-
-                if (await _repo.SaveChangesAsync()) return Created($"/api/evento/{model.Id}", _mapper.Map<EventoDto>(evento));
+                return Ok(evento);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar atualizar o evento. Erro: {ex.Message}");
             }
-            return BadRequest();
         }
 
         [HttpDelete("{id}")]
@@ -122,43 +119,41 @@ namespace ProAgil.API.Controllers
         {
             try
             {
-                var evento = await _repo.GetEventoAsyncById(id, false);
-                if (evento == null) return NotFound();
+                var evento = await _eventosServices.GetEventoByIdAsync(id);
+                if (evento == null) return NoContent();
 
-                _repo.Delete(evento);
+                if (await _eventosServices.DeleteEventos(id)) {
 
-                if (await _repo.SaveChangesAsync()) return Ok();
+                    DeletarImagem(evento.ImagemURL);
+                    return Ok(new { message = "Deletado" });
+                }
+
+                return BadRequest("Evento não deletado");
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"{ex.Message}");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro ao tentar deletar o evento. Erro: {ex.Message}");
             }
-
-            return BadRequest();
         }
 
-        [HttpPost("upload")]
+        [HttpPost("upload/{eventoId}")]
         [Authorize]
-        public async Task<IActionResult> Upload()
+        public async Task<IActionResult> UploadAsync(int eventoId)
         {
             try
             {
+                var evento = await _eventosServices.GetEventoByIdAsync(eventoId, true);
+                if (evento == null) return NoContent();
+
                 var file = Request.Form.Files[0];
-                var folderName = Path.Combine("Resources", "Images");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                
-                if(file.Length > 0)
+                if (file.Length > 0)
                 {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
-                    var fullPath = Path.Combine(pathToSave, fileName.Replace("\"", " ").Trim());
-
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-
-                    return Ok();
+                    DeletarImagem(evento.ImagemURL);
+                    evento.ImagemURL = await SalvarImagem(file);
                 }
+                return Ok(await _eventosServices.UpdateEventos(eventoId, evento));
+
+
             }
             catch (Exception ex)
             {
@@ -167,6 +162,29 @@ namespace ProAgil.API.Controllers
 
             return BadRequest("Erro ao tentar realizar upload");
 
+        }
+
+        [NonAction]
+        public void DeletarImagem(string imagem)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imagem);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
+        }
+
+        [NonAction]
+        public async Task<string> SalvarImagem(IFormFile imagem)
+        {
+            string nomeImagem = new string(Path.GetFileNameWithoutExtension(imagem.FileName).Take(10).ToArray()).Replace(' ', '-');
+            nomeImagem = $"{nomeImagem}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imagem.FileName)}";
+
+            var imagemPath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", nomeImagem);
+
+            using (var fileStream = new FileStream(imagemPath, FileMode.Create))
+            {
+                await imagem.CopyToAsync(fileStream);
+            }
+                return nomeImagem;
         }
     }
 }

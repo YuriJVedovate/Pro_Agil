@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ProAgil.Domain.Dtos
 {
@@ -14,7 +10,7 @@ namespace ProAgil.Domain.Dtos
         public string ImagemURL { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-        public List<RedeSocialDto> RedesSociais { get; }
-        public List<EventoDto> Eventos { get; }
+        public IEnumerable<RedeSocialDto> RedesSociais { get; }
+        public IEnumerable<EventoDto> Eventos { get; }
     }
 }

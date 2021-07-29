@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProAgil.Domain
 {
+    //[Table("Eventos")]
     public class Evento
     {
         public int Id { get; set; }

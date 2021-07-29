@@ -12,8 +12,13 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ProAgil.Business;
+using ProAgil.Business.Interfaces;
+using ProAgil.Data;
+using ProAgil.Data.Interfaces;
 using ProAgil.Domain.Identity;
 using ProAgil.Repository;
+using SharpYaml.Serialization;
 using System.IO;
 using System.Text;
 
@@ -32,9 +37,16 @@ namespace ProAgil.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProAgilContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IEventosServices, EventosServices>();
+            services.AddScoped<ILotesServices, LotesServices>();
+
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
-            services.AddControllers();
-            services.AddInfrastructure(Configuration);
+            services.AddScoped<IEventosRepository, EventosRepository>();
+            services.AddScoped<ILotesRepository, LotesRepository>();
+
+            services.AddControllers()
+                    .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddAutoMapper();
             services.AddSwaggerGen(c =>
             {

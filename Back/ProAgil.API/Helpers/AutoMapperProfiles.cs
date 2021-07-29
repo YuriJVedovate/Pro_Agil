@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using System.Linq;
 using ProAgil.Domain.Dtos;
 using ProAgil.Domain.Identity;
+using System.Linq;
 
 namespace ProAgil.Domain.Helpers
 {

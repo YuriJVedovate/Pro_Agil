@@ -7,7 +7,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { tap } from 'rxjs/internal/operators/tap';
 
 @Injectable({ providedIn: 'root' })

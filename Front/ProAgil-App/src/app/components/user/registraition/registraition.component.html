@@ -1,0 +1,159 @@
+<div class="row mt-4">
+  <div class="col-md-6 d-none d-md-block" style="height: 450px">
+    <div class="text-center col-md-12 my-auto side-heder">
+      <h1>Cadastro de Usuário</h1>
+      <img
+        src="../../../../assets/img/undraw_Access_account_re_8spm.svg"
+        class="my-4"
+        alt=""
+        width="400px"
+      />
+    </div>
+  </div>
+  <div class="col-md-6">
+    <form [formGroup]="registerForm" autocomplete="off">
+      <div class="pb-2 d-block d-md-none">
+        <h3 class="border-bottom">Cadastro de Usuário</h3>
+      </div>
+      <div class="form-floating form-group required mt-3">
+        <input
+          type="text"
+          class="form-control"
+          id="InputNome"
+          formControlName="fullName"
+          [ngClass]="{
+            'is-invalid': f.fullName.errors && f.fullName.touched,
+            'is-valid': !f.fullName.errors && f.fullName.touched
+          }"
+          placeholder="Insira o Nome Completo"
+        />
+        <label class="" for="InputNome">Nome Completo:</label>
+        <div
+          *ngIf="f.fullName.errors?.required && f.fullName.touched"
+          class="invalid-feedback"
+        >
+          O campo é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-floating form-group mt-3">
+        <input
+          class="form-control"
+          id="InputEmail"
+          type="text"
+          formControlName="email"
+          [ngClass]="{
+            'is-invalid': f.email.errors && f.email.touched,
+            'is-valid': !f.email.errors && f.email.touched
+          }"
+          placeholder="Insira o Nome Completo"
+        />
+        <label for="InputEmail">Email:</label>
+        <div
+          *ngIf="f.email.errors?.required && f.email.touched"
+          class="invalid-feedback"
+        >
+          O campo é obrigatório.
+        </div>
+        <div
+          *ngIf="f.email.errors?.email && f.email.touched"
+          class="invalid-feedback"
+        >
+          E-mail invalido
+        </div>
+      </div>
+      <div class="form-floating form-group mt-3">
+        <input
+          class="form-control"
+          id="InputUsuario"
+          type="text"
+          formControlName="userName"
+          [ngClass]="{
+            'is-invalid': f.userName.errors && f.userName.touched,
+            'is-valid': !f.userName.errors && f.userName.touched
+          }"
+          placeholder="Insira o nome de Usuário"
+        />
+        <label for="InputUsuario">Usuario:</label>
+        <div
+          *ngIf="f.userName.errors?.required && f.userName.touched"
+          class="invalid-feedback"
+        >
+          O campo é obrigatório.
+        </div>
+      </div>
+      <div>
+        <div class="form-floating form-group mt-3">
+          <input
+            class="form-control"
+            id="InputSenha"
+            type="password"
+            formControlName="password"
+            [ngClass]="{
+              'is-invalid': f.password.errors && f.password.touched,
+              'is-valid': !f.password.errors && f.password.touched
+            }"
+            placeholder="Digite uma Senha"
+          />
+          <label for="InputSenha">Senha:</label>
+          <div
+            *ngIf="f.password.errors?.required && f.password.touched"
+            class="invalid-feedback"
+          >
+            O campo é obrigatório.
+          </div>
+          <div
+            *ngIf="f.password.errors?.minlength && f.password.touched"
+            class="invalid-feedback"
+          >
+            A Senha deve ter no minimo 4 caracteres.
+          </div>
+        </div>
+        <div class="form-floating form-group mt-3">
+          <input
+            class="form-control"
+            id="InputConfirmeSenha"
+            type="password"
+            formControlName="confirmPassword"
+            [ngClass]="{
+              'is-invalid':
+                (f.confirmPassword.errors && f.confirmPassword.touched) ||
+                (f.confirmPassword.errors?.mustMatch &&
+                  f.confirmPassword.touched),
+              'is-valid': !f.confirmPassword.errors && f.confirmPassword.touched
+            }"
+            placeholder="Confirme a Senha"
+          />
+          <label for="InputConfirmeSenha">Confirmar Senha:</label>
+          <div
+            *ngIf="
+              f.confirmPassword.errors?.required && f.confirmPassword.touched
+            "
+            class="invalid-feedback"
+          >
+            O campo é obrigatório.
+          </div>
+          <div
+            *ngIf="
+              f.confirmPassword.errors?.mustMatch && f.confirmPassword.touched
+            "
+            class="invalid-feedback"
+          >
+            As senhas não são iguais
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-4 my-3 mx-auto">
+          <button
+            class="btn btn-lg btn-success btn-block"
+            [disabled]="!registerForm.valid"
+            (click)="cadastrarUsuario()"
+          >
+            Registar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

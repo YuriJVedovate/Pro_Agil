@@ -1,0 +1,384 @@
+<app-titulo
+  [titulo]="titulo"
+  [subtitulo]="subtitulo"
+  [iconClass]="iconClass"
+></app-titulo>
+
+<div class="card rounded shadow-sm p-3">
+  <div class="d-flex justify-content-between">
+    <div class="form-floating col-10">
+      <input
+        type="text"
+        class="form-control mb-2"
+        id="floatingInput"
+        placeholder="buscar"
+        [(ngModel)]="filtroLista"
+      />
+      <label for="floatingInput">Filtro: </label>
+    </div>
+    <div class="col-2">
+      <button
+        class="btn btn-primary btn-novo mx-2 d-flex align-items-center px-4"
+        (click)="novoEvento(template)"
+      >
+        <i class="fa fa-plus-circle mx-1"></i>
+        <b class="d-none d-lg-block mx-1">Novo Evento</b>
+      </button>
+    </div>
+  </div>
+
+  <div class="p-1" fxLayout="row wrap" fxLayoutAlign="space-evenly stretch">
+    <div *ngIf="!eventosFiltrados.length">
+      <img
+        src="./../assets/img/Notfound.svg"
+        class="img-fluid mt-4"
+        (click)="file.click()"
+        style="cursor: pointer; height: 400px"
+        alt="Card image cap"
+      />
+      <h1 class="m-4 px-4">Nenhum evento encontrado!</h1>
+    </div>
+    <ng-container *ngFor="let evento of eventosFiltrados">
+      <div
+        class="card my-1"
+        fxFlex="0 1 calc(33.3% - 10px)"
+        fxFlex.lt-md="0 1 calc(50%  - 10px)"
+        fxFlex.lt-sm="100%"
+      >
+        <img
+          src="http://localhost:5000/resources/images/{{ evento.imagemURL }}"
+          class="card-img-top rounded mx-auto d-block"
+          style="
+            background-size: cover;
+            background-position: center;
+            height: 373.38px;
+          "
+        />
+        <div class="card-body position-relative">
+          <hr />
+          <h1 class="card-title">{{ evento.tema }}</h1>
+          <p class="card-text">Local: {{ evento.local }}</p>
+          <p class="card-text">
+            Data: {{ evento.dataEvento | DateTimeFormatPipe }}
+          </p>
+          <p class="card-text">Quantidade :{{ evento.quantidadePessoas }}</p>
+          <p class="card-text" *ngIf="!evento.lotes.length">
+            Lote: Não informado
+          </p>
+          <p class="card-text" *ngIf="evento.lotes.length">
+            {{ evento.lotes[0]?.nome }}
+          </p>
+          <div class="btn-group w-100" role="group" aria-label="Basic example">
+            <button
+              class="btn btn-sm btn-primary"
+              tooltip="Editar"
+              (click)="editarEvento(evento, template)"
+            >
+              <i class="fa fa-edit"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              tooltip="Deletar"
+              (click)="excluirEvento(evento, confirm)"
+            >
+              <i class="fa fa-eraser"></i>
+            </button>
+            <a
+              [routerLink]="['/evento', evento.id, 'edit']"
+              tooltip="Editar Tudo"
+              class="btn btn-sm btn-warning"
+            >
+              <i class="fa fa-edit"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div
+  bsModal
+  #template="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-sizes-name1"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Large modal
+        </h4>
+        <button
+          type="button"
+          class="close pull-right"
+          (click)="template.hide()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registerForm" autocomplete="off">
+          <div class="row my-4">
+            <div class="form-floating form-group col-sm-12">
+              <input
+                type="text"
+                class="form-control"
+                id="InputTema"
+                placeholder="Tema"
+                formControlName="tema"
+                [ngClass]="{
+                  'is-invalid': f.tema.errors && f.tema!.touched,
+                  'is-valid': !f.tema.errors && f.tema!.touched
+                }"
+              />
+              <div
+                *ngIf="f.tema.errors?.required && f.tema!.touched"
+                class="invalid-feedback"
+              >
+                O tema é obrigatório.
+              </div>
+              <div
+                *ngIf="f.tema.errors?.minlength && f.tema!.touched"
+                class="invalid-feedback"
+              >
+                O tema deve ter no minimo 4 caracteres.
+              </div>
+              <div
+                *ngIf="f.tema.errors?.maxlength && f.tema!.touched"
+                class="invalid-feedback"
+              >
+                O tema deve ter no máximo 50 caracteres
+              </div>
+
+              <label class="mx-2" for="InputTema">Tema: </label>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="form-floating form-group col-sm-12">
+              <input
+                type="text"
+                class="form-control"
+                id="InputLocal"
+                placeholder="Local"
+                formControlName="local"
+                [ngClass]="{
+                  'is-invalid': f.local.errors && f.local!.touched,
+                  'is-valid': !f.local.errors && f.local!.touched
+                }"
+              />
+              <div
+                *ngIf="f.local.errors?.required && f.local!.touched"
+                class="invalid-feedback"
+              >
+                O local é obrigatório.
+              </div>
+              <label class="mx-2" for="InputLocal">Local: </label>
+            </div>
+          </div>
+          <div class="row my-4">
+            <div class="form-floating form-group col-sm-4">
+              <input
+                type="text"
+                mask="(00) 00000-0000"
+                class="form-control"
+                id="InputTelefone"
+                placeholder="telefone"
+                formControlName="telefone"
+                [ngClass]="{
+                  'is-invalid': f.telefone.errors && f.telefone!.touched,
+                  'is-valid': !f.telefone.errors && f.telefone!.touched
+                }"
+              />
+              <div
+                *ngIf="f.telefone.errors?.required && f.telefone!.touched"
+                class="invalid-feedback"
+              >
+                O telefone é obrigatório.
+              </div>
+              <label class="mx-2" for="InputTelefone">Telefone: </label>
+            </div>
+
+            <div class="form-floating form-group col-sm-8">
+              <input
+                type="text"
+                class="form-control"
+                id="InputEmail"
+                placeholder="email"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid': f.email.errors && f.email!.touched,
+                  'is-valid': !f.email.errors && f.email!.touched
+                }"
+              />
+              <div
+                *ngIf="f.email.errors?.required && f.email!.touched"
+                class="invalid-feedback"
+              >
+                O email é obrigatório.
+              </div>
+              <div
+                *ngIf="f.email.errors?.email && f.email!.touched"
+                class="invalid-feedback"
+              >
+                E-mail invalido.
+              </div>
+              <label class="mx-2" for="InputEmail">Email</label>
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="form-floating form-group col-sm-4">
+              <input
+                type="text"
+                class="form-control"
+                id="InputPessoas"
+                placeholder="quantidade Pessoas"
+                formControlName="quantidadePessoas"
+                [ngClass]="{
+                  'is-invalid':
+                    f.quantidadePessoas.errors && f.quantidadePessoas!.touched,
+                  'is-valid':
+                    !f.quantidadePessoas.errors && f.quantidadePessoas!.touched
+                }"
+              />
+              <div
+                *ngIf="
+                  f.quantidadePessoas.errors?.required &&
+                  f.quantidadePessoas!.touched
+                "
+                class="invalid-feedback"
+              >
+                A quantidade pessoas é obrigatório.
+              </div>
+              <div
+                *ngIf="
+                  f.quantidadePessoas.errors?.max &&
+                  f.quantidadePessoas!.touched
+                "
+                class="invalid-feedback"
+              >
+                A quantidade maxima de pessoas é 10.000.
+              </div>
+              <label class="mx-2" for="InputPessoas">Qtd Pessoas:</label>
+            </div>
+            <div class="form-floating form-group col-sm-5">
+              <input
+                type="text"
+                class="form-control"
+                bsDatepicker
+                [bsConfig]="{
+                  dateInputFormat: 'DD/MM/YYYY hh:mm a',
+                  isAnimated: true,
+                  adaptivePosition: true,
+                  showWeekNumbers: false
+                }"
+                id="InputData"
+                placeholder="Data"
+                formControlName="dataEvento"
+                [ngClass]="{
+                  'is-invalid': f.dataEvento.errors && f.dataEvento!.touched,
+                  'is-valid': !f.dataEvento.errors && f.dataEvento!.touched
+                }"
+              />
+              <div
+                *ngIf="f.dataEvento.errors?.required && f.dataEvento!.touched"
+                class="invalid-feedback"
+              >
+                A data e hora é obrigatório.
+              </div>
+              <label class="mx-2" for="InputData">Data e Hora: </label>
+            </div>
+            <div class="form-group col-sm-3">
+              <table>
+                <tr>
+                  <td>
+                    <button class="btn btn-success px-4" (click)="file.click()">
+                      Enviar imagem
+                    </button>
+                    <input
+                      type="file"
+                      class="form-control"
+                      #file
+                      id="InputImagem"
+                      placeholder="Imagem"
+                      formControlName="imagemURL"
+                      [ngClass]="{
+                        'is-invalid':
+                          f.imagemURL.errors && f.imagemURL!.touched,
+                        'is-valid': !f.imagemURL.errors && f.imagemURL!.touched
+                      }"
+                      (change)="onFileChange($event)"
+                      style="display: none"
+                    />
+                  </td>
+                </tr>
+              </table>
+              <div
+                *ngIf="f.imagemURL.errors?.required && f.imagemURL!.touched"
+                class="invalid-feedback"
+              >
+                A imagem é obrigatório.
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="template.hide()">
+          Fechar
+        </button>
+        <button
+          class="btn btn-primary"
+          [disabled]="!registerForm.valid"
+          (click)="salvarAlteracao(template)"
+        >
+          Salvar Alterações
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  bsModal
+  #confirm="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-sizes-name1"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Deletando Evento</h4>
+        <button
+          type="button"
+          class="close pull-right"
+          (click)="confirm.hide()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{ bodyDeletarEvento }}</p>
+      </div>
+      <div class="modal-footer btn-group d-flex">
+        <button type="button" class="btn btn-primary" (click)="confirm.hide()">
+          CANCELAR
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="confirmeDelete(confirm)"
+        >
+          DELETAR
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

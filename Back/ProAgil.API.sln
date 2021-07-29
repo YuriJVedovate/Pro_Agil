@@ -5,9 +5,15 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProAgil.API", "ProAgil.API\ProAgil.API.csproj", "{E96C0D2D-623F-4E21-9080-8DAF1E1AD4C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProAgil.Domain", "ProAgil.Domain\ProAgil.Domain.csproj", "{AF20AD62-D0A7-4A55-9625-0D20DA6761EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProAgil.Model", "ProAgil.Domain\ProAgil.Model.csproj", "{AF20AD62-D0A7-4A55-9625-0D20DA6761EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProAgil.Repository", "ProAgil.Repository\ProAgil.Repository.csproj", "{B96C2614-90C8-40D7-A43B-1D47648C3341}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProAgil.Data", "ProAgil.Repository\ProAgil.Data.csproj", "{B96C2614-90C8-40D7-A43B-1D47648C3341}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Web", "01 - Web", "{9AB8941A-2425-46F2-9393-9D0E0A0BB491}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Business", "02 - Business", "{D024D66B-42B4-4B87-AF92-2642539B1B23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProAgil.Business", "ProAgil.Busine\ProAgil.Business.csproj", "{3DD9BE30-8592-4152-B14E-73ACCBF851B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +33,19 @@ Global
 		{B96C2614-90C8-40D7-A43B-1D47648C3341}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B96C2614-90C8-40D7-A43B-1D47648C3341}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B96C2614-90C8-40D7-A43B-1D47648C3341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DD9BE30-8592-4152-B14E-73ACCBF851B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD9BE30-8592-4152-B14E-73ACCBF851B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD9BE30-8592-4152-B14E-73ACCBF851B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD9BE30-8592-4152-B14E-73ACCBF851B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E96C0D2D-623F-4E21-9080-8DAF1E1AD4C3} = {9AB8941A-2425-46F2-9393-9D0E0A0BB491}
+		{AF20AD62-D0A7-4A55-9625-0D20DA6761EF} = {D024D66B-42B4-4B87-AF92-2642539B1B23}
+		{B96C2614-90C8-40D7-A43B-1D47648C3341} = {D024D66B-42B4-4B87-AF92-2642539B1B23}
+		{3DD9BE30-8592-4152-B14E-73ACCBF851B8} = {D024D66B-42B4-4B87-AF92-2642539B1B23}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {097E1BBF-8B83-438A-97C1-9801E591B4FB}
