@@ -9,12 +9,12 @@ describe('PalestrantesComponent', () => {
   let component: PalestrantesComponent;
   let fixture: ComponentFixture<PalestrantesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async() => {
+    await TestBed.configureTestingModule({
       declarations: [ PalestrantesComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PalestrantesComponent);
@@ -22,7 +22,6 @@ describe('PalestrantesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+
+
 });

@@ -9,12 +9,12 @@ describe('RegistraitionComponent', () => {
   let component: RegistraitionComponent;
   let fixture: ComponentFixture<RegistraitionComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async() => {
+    await TestBed.configureTestingModule({
       declarations: [ RegistraitionComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RegistraitionComponent);
@@ -22,7 +22,4 @@ describe('RegistraitionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });

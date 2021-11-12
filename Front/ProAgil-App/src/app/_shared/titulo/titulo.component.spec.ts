@@ -9,12 +9,12 @@ describe('TituloComponent', () => {
   let component: TituloComponent;
   let fixture: ComponentFixture<TituloComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ TituloComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TituloComponent);
@@ -25,4 +25,5 @@ describe('TituloComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

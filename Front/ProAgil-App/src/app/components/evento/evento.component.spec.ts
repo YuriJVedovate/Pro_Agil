@@ -4,17 +4,18 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { EventoComponent } from './evento.component';
+import { TituloComponent } from './../../_shared/titulo/titulo.component';
 
 describe('EventoComponent', () => {
   let component: EventoComponent;
   let fixture: ComponentFixture<EventoComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EventoComponent ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ EventoComponent, , TituloComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EventoComponent);
@@ -22,7 +23,4 @@ describe('EventoComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });
