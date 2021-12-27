@@ -77,7 +77,7 @@ export class EventoEditComponent implements OnInit {
     });
     this.spinner.hide();
   }
-
+ 
   salvarEvento() {
     this.evento = Object.assign(
       { id: this.evento.id },

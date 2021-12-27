@@ -1,351 +1,199 @@
 <app-titulo [titulo]="titulo"></app-titulo>
 
 <div class="card rounded shadow-sm p-3">
-  <div [formGroup]="registerForm">
-    <div class="row">
-      <div class="col-md-8">
-        <tabset>
-          <tab heading="Evento" id="tabEvento">
-            <div class="row my-4">
-              <div class="form-floating col-md-12">
-                <input
-                  type="text"
-                  [(ngModel)]="evento.tema"
-                  class="form-control"
-                  id="InputTema"
-                  [ngClass]="{
+    <div [formGroup]="registerForm">
+        <div class="row">
+            <div class="col-md-8">
+                <tabset>
+                    <tab heading="Evento" id="tabEvento">
+                        <div class="row my-4">
+                            <div class="form-floating col-md-12">
+                                <input type="text" [(ngModel)]="evento.tema" class="form-control" id="InputTema" [ngClass]="{
                     'is-invalid': f.tema.errors && f.tema.touched,
                     'is-valid': !f.tema.errors && f.tema.touched
-                  }"
-                  formControlName="tema"
-                  placeholder="Insira o Tema"
-                />
-                <div
-                  *ngIf="f.tema.errors?.required && f.tema.touched"
-                  class="invalid-feedback"
-                >
-                  Tema é obrigatório.
-                </div>
-                <div
-                  *ngIf="f.tema.errors?.minlength && f.tema.touched"
-                  class="invalid-feedback"
-                >
-                  Tema deve ter no mínimo 4 Caracters.
-                </div>
-                <div
-                  *ngIf="f.tema.errors?.maxlength && f.tema.touched"
-                  class="invalid-feedback"
-                >
-                  Tema deve ter no máximo 50 Caracters.
-                </div>
-                <label class="mx-2" for="InputTema">Tema</label>
-              </div>
-            </div>
-            <div class="row my-4">
-              <div class="form-floating form-group col-md-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="InputLocal"
-                  placeholder="Local"
-                  formControlName="local"
-                  [ngClass]="{
+                  }" formControlName="tema" placeholder="Insira o Tema" />
+                                <div *ngIf="f.tema.errors?.required && f.tema.touched" class="invalid-feedback">
+                                    Tema é obrigatório.
+                                </div>
+                                <div *ngIf="f.tema.errors?.minlength && f.tema.touched" class="invalid-feedback">
+                                    Tema deve ter no mínimo 4 Caracters.
+                                </div>
+                                <div *ngIf="f.tema.errors?.maxlength && f.tema.touched" class="invalid-feedback">
+                                    Tema deve ter no máximo 50 Caracters.
+                                </div>
+                                <label class="mx-2" for="InputTema">Tema</label>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="form-floating form-group col-md-8">
+                                <input type="text" class="form-control" id="InputLocal" placeholder="Local" formControlName="local" [ngClass]="{
                     'is-invalid': f.local.errors && f.local.touched,
                     'is-valid': !f.local.errors && f.local.touched
-                  }"
-                  [(ngModel)]="evento.local"
-                />
-                <div
-                  *ngIf="f.local.errors?.required && f.local.touched"
-                  class="invalid-feedback"
-                >
-                  Local é obrigatório.
-                </div>
-                <label class="mx-2" for="InputLocal">Local</label>
-              </div>
-              <div class="form-floating form-group col-md-4">
-                <input
-                  type="text"
-                  class="form-control"
-                  bsDatepicker
-                  [bsConfig]="{
+                  }" [(ngModel)]="evento.local" />
+                                <div *ngIf="f.local.errors?.required && f.local.touched" class="invalid-feedback">
+                                    Local é obrigatório.
+                                </div>
+                                <label class="mx-2" for="InputLocal">Local</label>
+                            </div>
+                            <div class="form-floating form-group col-md-4">
+                                <input type="text" class="form-control" bsDatepicker [bsConfig]="{
                     dateInputFormat: 'DD/MM/YYYY hh:mm a',
                     isAnimated: true,
                     adaptivePosition: true,
                     showWeekNumbers: false
-                  }"
-                  id="InputData"
-                  placeholder="Data"
-                  formControlName="dataEvento"
-                  [ngClass]="{
+                  }" id="InputData" placeholder="Data" formControlName="dataEvento" [ngClass]="{
                     'is-invalid': f.dataEvento.errors && f.dataEvento.touched,
                     'is-valid': !f.dataEvento.errors && f.dataEvento.touched
-                  }"
-                  [(ngModel)]="evento.dataEvento"
-                />
-                <div
-                  *ngIf="f.dataEvento.errors?.required && f.dataEvento.touched"
-                  class="invalid-feedback"
-                >
-                  A data e hora é obrigatório.
-                </div>
-                <label class="mx-2" for="InputData">Data e Hora</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-floating form-group col-md-3">
-                <input
-                  type="text"
-                  [ngClass]="{
+                  }" [(ngModel)]="evento.dataEvento" />
+                                <div *ngIf="f.dataEvento.errors?.required && f.dataEvento.touched" class="invalid-feedback">
+                                    A data e hora é obrigatório.
+                                </div>
+                                <label class="mx-2" for="InputData">Data e Hora</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating form-group col-md-3">
+                                <input type="text" [ngClass]="{
                     'is-invalid':
                       f.quantidadePessoas.errors && f.quantidadePessoas.touched,
                     'is-valid':
                       !f.quantidadePessoas.errors && f.quantidadePessoas.touched
-                  }"
-                  class="form-control"
-                  formControlName="quantidadePessoas"
-                  id="InputPessoas"
-                  placeholder="quantidade Pessoas"
-                  [(ngModel)]="evento.quantidadePessoas"
-                />
-                <div
-                  *ngIf="
+                  }" class="form-control" formControlName="quantidadePessoas" id="InputPessoas" placeholder="quantidade Pessoas" [(ngModel)]="evento.quantidadePessoas" />
+                                <div *ngIf="
                     registerForm.get('quantidadePessoas').errors?.required &&
                     f.quantidadePessoas.touched
-                  "
-                  class="invalid-feedback"
-                >
-                  A quantidade pessoas é obrigatório.
-                </div>
-                <div
-                  *ngIf="
+                  " class="invalid-feedback">
+                                    A quantidade pessoas é obrigatório.
+                                </div>
+                                <div *ngIf="
                     f.quantidadePessoas.errors?.max &&
                     f.quantidadePessoas.touched
-                  "
-                  class="invalid-feedback"
-                >
-                  A quantidade maxima de pessoas é 10.000.
-                </div>
-                <label class="mx-2" for="InputPessoas">Qtd Pessoas:</label>
-              </div>
-              <div class="form-floating form-group col-md-4">
-                <input
-                  type="text"
-                  mask="(00) 00000-0000"
-                  class="form-control"
-                  id="InputTelefone"
-                  placeholder="telefone"
-                  [ngClass]="{
+                  " class="invalid-feedback">
+                                    A quantidade maxima de pessoas é 10.000.
+                                </div>
+                                <label class="mx-2" for="InputPessoas">Qtd Pessoas:</label>
+                            </div>
+                            <div class="form-floating form-group col-md-4">
+                                <input type="text" mask="(00) 00000-0000" class="form-control" id="InputTelefone" placeholder="telefone" [ngClass]="{
                     'is-invalid': f.telefone.errors && f.telefone.touched,
                     'is-valid': !f.telefone.errors && f.telefone.touched
-                  }"
-                  formControlName="telefone"
-                  [(ngModel)]="evento.telefone"
-                />
-                <div
-                  *ngIf="f.telefone.errors?.required && f.telefone.touched"
-                  class="invalid-feedback"
-                >
-                  O telefone é obrigatório.
-                </div>
-                <label class="mx-2" for="InputTelefone">Telefone: </label>
-              </div>
-              <div class="form-floating form-group col-md-5">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="InputEmail"
-                  [ngClass]="{
+                  }" formControlName="telefone" [(ngModel)]="evento.telefone" />
+                                <div *ngIf="f.telefone.errors?.required && f.telefone.touched" class="invalid-feedback">
+                                    O telefone é obrigatório.
+                                </div>
+                                <label class="mx-2" for="InputTelefone">Telefone: </label>
+                            </div>
+                            <div class="form-floating form-group col-md-5">
+                                <input type="text" class="form-control" id="InputEmail" [ngClass]="{
                     'is-invalid': f.email.errors && f.email.touched,
                     'is-valid': !f.email.errors && f.email.touched
-                  }"
-                  formControlName="email"
-                  placeholder="e-mail"
-                  [(ngModel)]="evento.email"
-                />
-                <div
-                  *ngIf="f.email.errors?.required && f.email.touched"
-                  class="invalid-feedback"
-                >
-                  O email é obrigatório.
-                </div>
-                <div
-                  *ngIf="f.email.errors?.email && f.email.touched"
-                  class="invalid-feedback"
-                >
-                  E-mail invalido.
-                </div>
-                <label class="mx-2" for="InputEmail">Email</label>
-              </div>
-            </div>
-          </tab>
-          <tab heading="Lotes" id="tabLotes">
-            <div
-              *ngFor="let lote of lotes.controls; let i = index"
-              formArrayName="lotes"
-            >
-              <fieldset [formGroupName]="i" class="form-group">
-                <legend class="d-flex justify-content-between capitalize">
-                  {{
-                    lotes.get(i + ".nome").value === "" ||
-                    lotes.get(i + ".nome").value == null
-                      ? "Lotes"
-                      : lotes.get(i + ".nome").value
-                  }}
-                  <button
-                    class="btn btn-md btn-warning mb-1"
-                    (click)="removerLote(i, confirm)"
-                  >
+                  }" formControlName="email" placeholder="e-mail" [(ngModel)]="evento.email" />
+                                <div *ngIf="f.email.errors?.required && f.email.touched" class="invalid-feedback">
+                                    O email é obrigatório.
+                                </div>
+                                <div *ngIf="f.email.errors?.email && f.email.touched" class="invalid-feedback">
+                                    E-mail invalido.
+                                </div>
+                                <label class="mx-2" for="InputEmail">Email</label>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="Lotes" id="tabLotes">
+                        <div *ngFor="let lote of lotes.controls; let i = index" formArrayName="lotes">
+                            <fieldset [formGroupName]="i" class="form-group">
+                                <legend class="d-flex justify-content-between capitalize">
+                                    {{ lotes.get(i + ".nome").value === "" || lotes.get(i + ".nome").value == null ? "Lotes" : lotes.get(i + ".nome").value }}
+                                    <button class="btn btn-md btn-warning mb-1" (click)="removerLote(i, confirm)">
                     remove
                   </button>
-                </legend>
-                <div class="row">
-                  <div class="form-floating form-group col-md-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="InputNome"
-                      formControlName="nome"
-                      placeholder="Lote"
-                      [ngClass]="{
+                                </legend>
+                                <div class="row">
+                                    <div class="form-floating form-group col-md-4">
+                                        <input type="text" class="form-control" id="InputNome" formControlName="nome" placeholder="Lote" [ngClass]="{
                         'is-invalid':
                           lotes.get(i + '.nome').errors &&
                           lotes.get(i + '.nome')!.touched,
                         'is-valid':
                           !lotes.get(i + '.nome').errors &&
                           lotes.get(i + '.nome')!.touched
-                      }"
-                    />
-                    <label class="mx-2" for="InputNome">Nome</label>
-                  </div>
-                  <div class="form-floating form-group col-md-4">
-                    <input
-                      type="text"
-                      class="form-floating form-control"
-                      id="InputQuantidade"
-                      formControlName="quantidade"
-                      placeholder="000"
-                      [ngClass]="{
+                      }" />
+                                        <label class="mx-2" for="InputNome">Nome</label>
+                                    </div>
+                                    <div class="form-floating form-group col-md-4">
+                                        <input type="text" class="form-floating form-control" id="InputQuantidade" formControlName="quantidade" placeholder="000" [ngClass]="{
                         'is-invalid':
                           lotes.get(i + '.quantidade').errors &&
                           lotes.get(i + '.quantidade')!.touched,
                         'is-valid':
                           !lotes.get(i + '.quantidade').errors &&
                           lotes.get(i + '.quantidade')!.touched
-                      }"
-                    />
-                    <label class="mx-2" for="InputQuantidade">Quantidade</label>
-                  </div>
-                  <div class="form-floating form-group col-md-4">
-                    <input
-                      type="text"
-                      class="form-floating form-control"
-                      id="InputPreco"
-                      currencyMask
-                      [options]="{
+                      }" />
+                                        <label class="mx-2" for="InputQuantidade">Quantidade</label>
+                                    </div>
+                                    <div class="form-floating form-group col-md-4">
+                                        <input type="text" class="form-floating form-control" id="InputPreco" currencyMask [options]="{
                         prefix: 'R$ ',
                         thousands: '.',
                         decimal: ',',
                         align: 'left'
-                      }"
-                      formControlName="preco"
-                      placeholder="R$ 0,00"
-                      [ngClass]="{
+                      }" formControlName="preco" placeholder="R$ 0,00" [ngClass]="{
                         'is-invalid':
                           lotes.get(i + '.preco').errors &&
                           lotes.get(i + '.preco')!.touched,
                         'is-valid':
                           !lotes.get(i + '.preco').errors &&
                           lotes.get(i + '.preco')!.touched
-                      }"
-                    />
-                    <label class="mx-2" for="InputPreco">Preço</label>
-                  </div>
-                  <div class="form-floating form-group col-md-4 my-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      bsDatepicker
-                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }"
-                      id="InputDataInicio"
-                      formControlName="dataInicio"
-                      placeholder="Data"
-                      [ngClass]="{
+                      }" />
+                                        <label class="mx-2" for="InputPreco">Preço</label>
+                                    </div>
+                                    <div class="form-floating form-group col-md-4 my-4">
+                                        <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }" id="InputDataInicio" formControlName="dataInicio" placeholder="Data" [ngClass]="{
                         'is-invalid':
                           lotes.get(i + '.dataInicio').errors &&
                           lotes.get(i + '.dataInicio')!.touched,
                         'is-valid':
                           !lotes.get(i + '.dataInicio').errors &&
                           lotes.get(i + '.dataInicio')!.touched
-                      }"
-                    />
-                    <label class="mx-2" for="dataInicio">Data Início</label>
-                  </div>
-                  <div class="form-floating form-group col-md-4 my-4">
-                    <input
-                      type="text"
-                      class="form-control"
-                      bsDatepicker
-                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }"
-                      id="InputDataFim"
-                      formControlName="dataFim"
-                      placeholder="Data"
-                      [ngClass]="{
+                      }" />
+                                        <label class="mx-2" for="dataInicio">Data Início</label>
+                                    </div>
+                                    <div class="form-floating form-group col-md-4 my-4">
+                                        <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }" id="InputDataFim" formControlName="dataFim" placeholder="Data" [ngClass]="{
                         'is-invalid':
                           lotes.get(i + '.dataFim').errors &&
                           lotes.get(i + '.dataFim')!.touched,
                         'is-valid':
                           !lotes.get(i + '.dataFim').errors &&
                           lotes.get(i + '.dataFim')!.touched
-                      }"
-                    />
-                    <label class="mx-2" for="dataInicio">Data Fim</label>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-            <button (click)="adicionarLote()" class="btn btn-outline-primary">
+                      }" />
+                                        <label class="mx-2" for="dataInicio">Data Fim</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <button (click)="adicionarLote()" class="btn btn-outline-primary">
               Adicionar Lote
             </button>
-          </tab>
-          <tab heading="Redes Sociais" id="tabRedesSociais">
-            <div
-              formArrayName="redesSociais"
-              *ngFor="let rede of redesSociais.controls; let j = index"
-            >
-              <fieldset [formGroupName]="j" class="form-group">
-                <legend class="d-flex justify-content-between capitalize">
-                  {{
-                    redesSociais.get(j + ".nome").value === "" ||
-                    redesSociais.get(j + ".nome").value == null
-                      ? "Redes Sociais"
-                      : redesSociais
-                          .get(j + ".nome")
-                          .value?.replace("fab fa-", "")
-                  }}
-                  <button
-                    class="btn btn-md btn-warning mb-1"
-                    (click)="removerRedesSociais(j)"
-                  >
+                    </tab>
+                    <tab heading="Redes Sociais" id="tabRedesSociais">
+                        <div formArrayName="redesSociais" *ngFor="let rede of redesSociais.controls; let j = index">
+                            <fieldset [formGroupName]="j" class="form-group">
+                                <legend class="d-flex justify-content-between capitalize">
+                                    {{ redesSociais.get(j + ".nome").value === "" || redesSociais.get(j + ".nome").value == null ? "Redes Sociais" : redesSociais .get(j + ".nome") .value?.replace("fab fa-", "") }}
+                                    <button class="btn btn-md btn-warning mb-1" (click)="removerRedesSociais(j)">
                     remove
                   </button>
-                </legend>
-                <div class="row">
-                  <div class="form-floating form-group my-4 col-md-4">
-                    <select
-                      class="form-floating form-control"
-                      formControlName="nome"
-                      placeholder="Nome"
-                      id="inputRede"
-                      [ngClass]="{
+                                </legend>
+                                <div class="row">
+                                    <div class="form-floating form-group my-4 col-md-4">
+                                        <select class="form-floating form-control" formControlName="nome" placeholder="Nome" id="inputRede" [ngClass]="{
                         'is-invalid':
                           redesSociais.get(j + '.nome').errors &&
                           redesSociais.get(j + '.nome')!.touched,
                         'is-valid':
                           !redesSociais.get(j + '.nome').errors &&
                           redesSociais.get(j + '.nome')!.touched
-                      }"
-                    >
+                      }">
                       <option value="">Selecione</option>
                       <option value="fab fa-youtube">Youtube</option>
                       <option value="fab fa-instagram">Instagram</option>
@@ -359,154 +207,102 @@
                       <option value="fab fa-skype">Skype</option>
                       <option value="fab fa-vimeo">Vimeo</option>
                     </select>
-                    <label class="mx-2" for="inputRede">Nome</label>
-                  </div>
-                  <div class="form-floating form-group my-4 col-md-8">
-                    <input
-                      type="text"
-                      prefix="http://"
-                      mask=""
-                      formControlName="url"
-                      class="form-floating form-control"
-                      id="inputURL"
-                      placeholder="URL"
-                      [ngClass]="{
+                                        <label class="mx-2" for="inputRede">Nome</label>
+                                    </div>
+                                    <div class="form-floating form-group my-4 col-md-8">
+                                        <input type="text" prefix="http://" mask="" formControlName="url" class="form-floating form-control" id="inputURL" placeholder="URL" [ngClass]="{
                         'is-invalid':
                           redesSociais.get(j + '.url').errors &&
                           redesSociais.get(j + '.url')!.touched,
                         'is-valid':
                           !redesSociais.get(j + '.url').errors &&
                           redesSociais.get(j + '.url')!.touched
-                      }"
-                    />
-                    <label class="mx-2" for="inputURL">Link</label>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-            <button
-              (click)="adicionarRedesSociais()"
-              class="btn btn-outline-primary my-4"
-            >
+                      }" />
+                                        <label class="mx-2" for="inputURL">Link</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <button (click)="adicionarRedesSociais()" class="btn btn-outline-primary my-4">
               Adicionar Rede Social
             </button>
-          </tab>
-        </tabset>
-        <div class="row">
-          <div class="col-md-12 d-flex justify-content-end">
-            <!-- {{registerForm.value | json}} -->
-            <button
-              [disabled]="!registerForm.valid"
-              class="btn btn-lg btn-success my-2"
-              (click)="salvarEvento()"
-            >
+                    </tab>
+                </tabset>
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <!-- {{registerForm.value | json}} -->
+                        <button [disabled]="!registerForm.valid" class="btn btn-lg btn-success my-2" (click)="salvarEvento()">
               Salvar Alterações
             </button>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-row">
-          <div class="form-group col-md-9">
-            <input
-              type="file"
-              #file
-              (change)="onFileChange($event)"
-              class="form-control is-invalid"
-              formControlName="imagemURL"
-              placeholder="Imagem"
-              style="display: none"
-            />
-          </div>
-        </div>
-        <div class="card profile-card-2">
-          <div class="card-img-block">
-            <img
-              [src]="imagemURL"
-              class="img-fluid"
-              (click)="file.click()"
-              style="cursor: pointer; width: 414px"
-              alt="Card image cap"
-            />
-          </div>
-          <div class="card-body pt-3">
-            <h4>{{ evento.tema }}</h4>
-            <p class="card-text">
-              <b>Local:</b> {{ evento.local }}
-              <br />
-              <b>Data:</b> {{ evento.dataEvento }}
-            </p>
-            <hr />
-            <p class="card-text">
-              <b>Contatos</b><br />
-              <small class="text-muted"
-                >Telefone: {{ evento.telefone | mask: "(00) 00000-0000" }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <input type="file" #file (change)="onFileChange($event)" class="form-control is-invalid" formControlName="imagemURL" placeholder="Imagem" style="display: none" />
+                    </div>
+                </div>
+                <div class="card profile-card-2">
+                    <div class="card-img-block">
+                        <img [src]="imagemURL" class="img-fluid" (click)="file.click()" style="cursor: pointer; width: 414px" alt="Card image cap" />
+                    </div>
+                    <div class="card-body pt-3">
+                        <h4>{{ evento.tema }}</h4>
+                        <p class="card-text">
+                            <b>Local:</b> {{ evento.local }}
+                            <br />
+                            <b>Data:</b> {{ evento.dataEvento }}
+                        </p>
+                        <hr />
+                        <p class="card-text">
+                            <b>Contatos</b><br />
+                            <small class="text-muted">Telefone: {{ evento.telefone | mask: "(00) 00000-0000" }}
               </small>
-              <br />
-              <small class="text-muted">e-mail: {{ evento.email }} </small>
-            </p>
-            <p class="card-text">
-              Capacidade:
-              <small class="text-muted"> {{ evento.quantidadePessoas }} </small>
-            </p>
-            <div class="row">
-              <div class="icon-block col-md-8 iconesSociais">
-                <a
-                  *ngFor="let rede of redesSociais.controls; let l = index"
-                  class="mr-3"
-                  target="_blank"
-                  href="{{ redesSociais.get(l + '.url').value }}"
-                >
-                  <i class="{{ redesSociais.get(l + '.nome').value }}"></i>
-                </a>
-              </div>
-              <!--div class="col-md-4 d-flex justify-content-center">
+                            <br />
+                            <small class="text-muted">e-mail: {{ evento.email }} </small>
+                        </p>
+                        <p class="card-text">
+                            Capacidade:
+                            <small class="text-muted"> {{ evento.quantidadePessoas }} </small>
+                        </p>
+                        <div class="row">
+                            <div class="icon-block col-md-8 iconesSociais">
+                                <a *ngFor="let rede of redesSociais.controls; let l = index" class="mr-3" target="_blank" href="{{ redesSociais.get(l + '.url').value }}">
+                                    <i class="{{ redesSociais.get(l + '.nome').value }}"></i>
+                                </a>
+                            </div>
+                            <!--div class="col-md-4 d-flex justify-content-center">
               <a href="#" class="btn btn-outline-primary">Participar</a>
             </div-->
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
-<div
-  bsModal
-  #confirm="bs-modal"
-  class="modal fade"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="dialog-sizes-name1"
->
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Deletando Evento</h4>
-        <button
-          type="button"
-          class="close pull-right"
-          (click)="confirm.hide()"
-          aria-label="Close"
-        >
+<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Deletando Evento</h4>
+                <button type="button" class="close pull-right" (click)="confirm.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <p> Deseja deletar este lote?</p>
-      </div>
-      <div class="modal-footer btn-group d-flex">
-        <button type="button" class="btn btn-primary" (click)="confirm.hide()">
+            </div>
+            <div class="modal-body">
+                <p> Deseja deletar este lote?</p>
+            </div>
+            <div class="modal-footer btn-group d-flex">
+                <button type="button" class="btn btn-primary" (click)="confirm.hide()">
           CANCELAR
         </button>
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="confirmeDelete(confirm)"
-        >
+                <button type="button" class="btn btn-danger" (click)="confirmeDelete(confirm)">
           DELETAR
         </button>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
