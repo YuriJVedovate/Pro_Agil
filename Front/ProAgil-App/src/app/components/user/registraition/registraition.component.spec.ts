@@ -1,9 +1,12 @@
-/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import {  ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegistraitionComponent } from './registraition.component';
+import { FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '@app/services/auth.service';
+
+class ToastrServiceMock {}
+class AuthServiceMock {}
 
 describe('RegistraitionComponent', () => {
   let component: RegistraitionComponent;
@@ -11,7 +14,13 @@ describe('RegistraitionComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistraitionComponent ]
+      declarations: [ RegistraitionComponent],
+      providers: [
+        FormBuilder,
+        { provide: AuthService,useClass: AuthServiceMock},
+        { provide: ToastrService, useClass: ToastrServiceMock},
+      ],
+      imports: [FormsModule, FormsModule, ReactiveFormsModule, RouterTestingModule]
     })
     .compileComponents();
   });
@@ -20,6 +29,10 @@ describe('RegistraitionComponent', () => {
     fixture = TestBed.createComponent(RegistraitionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
 });

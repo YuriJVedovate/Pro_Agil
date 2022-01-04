@@ -79,6 +79,7 @@ describe('EventoEditComponent', () => {
         MaskService,
         NgxSpinnerService,
         BsModalRef,
+        FormBuilder,
         {
           provide: EventoService,
           useClass: EventoServiceMock,
@@ -86,10 +87,6 @@ describe('EventoEditComponent', () => {
         {
           provide: LoteService,
           useClass: LoteServiceMock,
-        },
-        {
-          provide: FormBuilder,
-          useClass: FormBuilderMock,
         },
         {
           provide: BsLocaleService,
@@ -115,9 +112,5 @@ describe('EventoEditComponent', () => {
     activatedRoute = Object.assign(new ActivatedRoute());
     component.ngOnInit();
   });
-
-  it('should create', () => {
-    fixture.detectChanges();
-    expect(component).toBeTruthy();
-  });
+  
 });
