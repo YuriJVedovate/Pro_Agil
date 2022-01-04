@@ -13,6 +13,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RouterModule } from '@angular/router';
 
 import { EventoService } from './services/Evento.service';
 
@@ -73,6 +74,7 @@ import { LoteService } from './services/lote.service';
     FlexLayoutModule,
     CollapseModule.forRoot(),
     NgxSpinnerModule,
+    RouterModule
   ],
   providers: [
     EventoService,
