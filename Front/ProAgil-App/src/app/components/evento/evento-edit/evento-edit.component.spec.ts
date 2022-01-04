@@ -112,5 +112,9 @@ describe('EventoEditComponent', () => {
     activatedRoute = Object.assign(new ActivatedRoute());
     component.ngOnInit();
   });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
   
 });
